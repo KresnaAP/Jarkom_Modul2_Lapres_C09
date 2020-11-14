@@ -144,6 +144,7 @@ yang memiliki substring “semeru” akan diarahkan menuju semeru.jpg.
       ![Foto 20](img/20.PNG)
       2. Kemudian Restart bind9
       3. Testing di GRESIK
+      
       ![Foto 21](img/21.PNG)
      
       
@@ -155,6 +156,7 @@ yang memiliki substring “semeru” akan diarahkan menuju semeru.jpg.
       ![Foto 22](img/22.PNG)
       5. Jalankan a2ensite, lalu Reload dan restart apache2
       6. Testing :
+      
       ![Foto 23](img/23.PNG)
       
 

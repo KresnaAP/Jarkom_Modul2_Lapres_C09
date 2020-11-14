@@ -60,165 +60,185 @@ yang memiliki substring “semeru” akan diarahkan menuju semeru.jpg.
 
 ## Jawaban
    1. Setting alamat utama : http://semeruc09.pw
-      a. Install bind9 di MALANG
-      b. Isikan configurasi http://semeruc09.pw di named.conf.local
+      1. Install bind9 di MALANG
+      2. Isikan configurasi http://semeruc09.pw di named.conf.local
       ![Foto 1](img/1.PNG)
-      c. Buat folder jarkom di dalam /etc/bind
-      d. Copykan file db.local pada path /etc/bind ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi semeruc09.pw
-      e. Kemudian buka file semeruc09.pw dan edit seperti gambar berikut
+      3. Buat folder jarkom di dalam /etc/bind
+      4. Copykan file db.local pada path /etc/bind ke dalam folder jarkom yang baru saja dibuat dan ubah namanya menjadi semeruc09.pw
+      5. Kemudian buka file semeruc09.pw dan edit seperti gambar berikut
       ![Foto 2](img/2.PNG)
-      f. Restart bind9
-      g. Test dengan mengubah nameserver di GRESIK dan ping semeruc09.pw
+      6. Restart bind9
+      7. Test dengan mengubah nameserver di GRESIK dan ping semeruc09.pw
       ![Foto 3](img/3.PNG)
       
    2. Membuat alias http://www.semeruc09.pw
-      a. Buka file semeruc09.pw pada server MALANG dan tambahkan konfigurasi seperti pada gambar berikut:
+      1. Buka file semeruc09.pw pada server MALANG dan tambahkan konfigurasi seperti pada gambar berikut:
       ![Foto 4](img/4.PNG)
-      b. Restart bind9
-      c. Untuk test, bisa ping www.semeruc09.pw di GRESIK
+      2. Restart bind9
+      3. Untuk test, bisa ping www.semeruc09.pw di GRESIK
       ![Foto 5](img/5.PNG)
       
    3. Buat subdomain http://penanjakan.semeruc09.pw 
-      a. Edit file /etc/bind/jarkom/semeruc09.pw lalu tambahkan subdomain untuk semeruc09.pw yang mengarah ke IP PROBOLINGGO.
+      1. Edit file /etc/bind/jarkom/semeruc09.pw lalu tambahkan subdomain untuk semeruc09.pw yang mengarah ke IP PROBOLINGGO.
       ![Foto 6](img/6.PNG)
-      b. Restart service bind
-      c. Test ping penanjakan.semeru.c09.pw
+      2. Restart service bind
+      3. Test ping penanjakan.semeru.c09.pw
       ![Foto 7](img/7.PNG)
       
    4. Reverse domain untuk domain utama
-      a. Edit file /etc/bind/named.conf.local pada MALANG 
-      b. Tambahkan konfigurasi berikut
+      1. Edit file /etc/bind/named.conf.local pada MALANG 
+      2. Tambahkan konfigurasi berikut
       ![Foto 8](img/8.PNG)
-      c. Copykan file db.local pada path /etc/bind ke dalam folder jarkom yang baru saja dibuat.
-      d. Edit file 77.151.10.in-addr.arpa menjadi seperti gambar di bawah ini
+      3. Copykan file db.local pada path /etc/bind ke dalam folder jarkom yang baru saja dibuat.
+      4. Edit file 77.151.10.in-addr.arpa menjadi seperti gambar di bawah ini
       ![Foto 9](img/9.PNG)
-      e. Kemudian restart bind9 
-      f. Testing menggunakan host -t PTR 10.151.77.84 di GRESIK
+      5. Kemudian restart bind9 
+      6. Testing menggunakan host -t PTR 10.151.77.84 di GRESIK
       ![Foto 10](img/10.PNG)
       
    5. Membuat DNS Server Slave pada MOJOKERTO
-      a. Konfigurasi Pada Server MALANG
-          i. Edit file /etc/bind/named.conf.local
-          ![Foto 11](img/11.PNG)
-          ii. Lakukan restart bind9
-      b. Konfigurasi Pada Server MOJOKERTO
-          i. Buka file /etc/bind/named.conf.local pada MOJOKERTO dan tambahkan syntax berikut:
-          ![Foto 12](img/12.PNG)
-          ii. Lakukan restart bind9
-      c. Testing
-          i. Pada server MALANG matikan service bind9
-          ii. Pada client GRESIK pastikan pengaturan nameserver mengarah ke IP MALANG dan IP MOJOKERTO
-          iii. Lakukan ping ke semeruc09.pw pada client GRESIK.
-          ![Foto 13](img/13.PNG)
+      1. Konfigurasi Pada Server MALANG
+         1. Edit file /etc/bind/named.conf.local
+         ![Foto 11](img/11.PNG)
+         2. Lakukan restart bind9
+      2. Konfigurasi Pada Server MOJOKERTO
+         1. Buka file /etc/bind/named.conf.local pada MOJOKERTO dan tambahkan syntax berikut:
+         ![Foto 12](img/12.PNG)
+         2. Lakukan restart bind9
+      3. Testing
+         1. Pada server MALANG matikan service bind9
+         2. Pada client GRESIK pastikan pengaturan nameserver mengarah ke IP MALANG dan IP MOJOKERTO
+         3. Lakukan ping ke semeruc09.pw pada client GRESIK.
+         ![Foto 13](img/13.PNG)
         
    6. Buat subdomain dengan alamat http://gunung.semeruc09.pw yang didelegasikan pada server MOJOKERTO dan mengarah ke IP Server PROBOLINGGO. 
-      a. Konfigurasi Pada Server MALANG
-          i. Pada MALANG, edit file /etc/bind/jarkom/semeruc09.pw dan ubah menjadi seperti di bawah ini
-          ![Foto 14](img/14.PNG)
-          ii. Kemudian edit file /etc/bind/named.conf.options pada MALANG.
-          iii. Kemudian comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options : `allow-query{any;};`
-          ![Foto 15](img/15.PNG)
-          iv. Kemudian edit file /etc/bind/named.conf.local menjadi seperti gambar di bawah:
-          ![Foto 16](img/16.PNG)
-          v. Setelah itu restart bind9
-          
+      1. Konfigurasi Pada Server MALANG
+         1. Pada MALANG, edit file /etc/bind/jarkom/semeruc09.pw dan ubah menjadi seperti di bawah ini
+         ![Foto 14](img/14.PNG)
+         2. Kemudian edit file /etc/bind/named.conf.options pada MALANG.
+         3. Kemudian comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options : `allow-query{any;};`
+         ![Foto 15](img/15.PNG)
+         4. Kemudian edit file /etc/bind/named.conf.local menjadi seperti gambar di bawah:
+         ![Foto 16](img/16.PNG)
+         5. Setelah itu restart bind9
+      2. Konfigurasi Pada Server MOJOKERTO
+         1. Pada MOJOKERTO edit file /etc/bind/named.conf.options
+         2. Kemudian comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options `Allow-query{any;};`
+         ![Foto 17](img/17.PNG)
+         3. Lalu edit file /etc/bind/named.conf.local
+         ![Foto 17](img/18.PNG)
+         4. Kemudian buat direktori dengan nama delegasi
+         5. Copy db.local ke direktori pucang dan edit namanya menjadi gunung.semeruc09.pw
+         6. Kemudian edit file gunung.semeruc09.pw
+         ![Foto 17](img/19.PNG)
+         7. Restart bind9
+      3. Testing
+         1. Lakukan ping ke domain gunung.semeruc09.pw dari GRESIK
+         ![Foto 17](img/20.PNG)
+
    7. Buat subdomain dengan nama http://naik.gunung.semeruc09.pw, domain ini diarahkan ke IP Server PROBOLINGGO.
-      a. Edit file gunung.semeruc09.pw di MOJOKERTO
+      1. Edit file gunung.semeruc09.pw di MOJOKERTO
       ![Foto 17](img/17.PNG)
-      b. Kemudian Restart bind9
-      c. Testing di GRESIK
+      2. Kemudian Restart bind9
+      3. Testing di GRESIK
       ![Foto 18](img/18.PNG)
       
    8. Domain http://semeruyyy.pw memiliki DocumentRoot pada /var/www/semeruyyy.pw.
-      a. Install apache2 di PROBOLINGGO
-      b. Install php
-      c. Download file dengan wget di /var/www/
-      d. Lalu setting di /etc/apache2/sites-available/semeruc09.pw.conf
-      
-      e. Jalankan a2ensite, lalu Reload dan restart apache2
-      f. Testing :
-      
+      1. Install apache2 di PROBOLINGGO
+      2. Install php
+      3. Download file dengan wget di /var/www/
+      4. Lalu setting di /etc/apache2/sites-available/semeruc09.pw.conf
+      ![Foto 19](img/19.PNG)
+      5. Jalankan a2ensite, lalu Reload dan restart apache2
+      6. Testing :
+      ![Foto 20](img/20.PNG)
 
    9. Aktifkan mod rewrite agar urlnya menjadi http://semeruyyy.pw/home. (Referensi jawaban :https://stackoverflow.com/questions/14149339/htaccess-short-url)
-      a. Jalankan perintah a2enmod rewrite untuk mengaktifkan module rewrite. Lalu restart apache2.
-      b. Buat file .htaccess di /var/www/semeruc09.pw dan diisi dengan :
-      
-      c. Edit file semeruc09.pw.conf
-
-      d. Restart apache
-      e. Testing, buka  http://semeruyyy.pw/home.
-
+      1. Jalankan perintah a2enmod rewrite untuk mengaktifkan module rewrite. Lalu restart apache2.
+      2. Buat file .htaccess di /var/www/semeruc09.pw dan diisi dengan :
+      ![Foto 20](img/20.PNG)
+      3. Edit file semeruc09.pw.conf
+      ![Foto 21](img/21.PNG)
+      4. Restart apache
+      5. Testing, buka  http://semeruyyy.pw/home.
+      ![Foto 22](img/22.PNG)
 
    10. Web http://penanjakan.semeruc09.pw akan digunakan untuk menyimpan assets file yang memiliki DocumentRoot pada /var/www/penanjakan.semeruc09.pw 
-      dan memiliki struktur folder sebagai berikut:
-       a. setting di /etc/apache2/sites-available/penanjakan.semeruc09.pw.conf
-       
-       b. Jalankan a2ensite, lalu Reload dan restart apache2
-
+        dan memiliki struktur folder sebagai berikut:
+       ![Foto 23](img/23.PNG)
+       1. setting di /etc/apache2/sites-available/penanjakan.semeruc09.pw.conf
+       ![Foto 24](img/24.PNG)
+       2. Jalankan a2ensite, lalu Reload dan restart apache2
+       ![Foto 25](img/25.PNG)
 
    11. Pada folder /public dibolehkan directory listing namun untuk folder yang berada di dalamnya tidak dibolehkan.
-       a. Pindah ke directory /etc/apache2/sites-available kemudian buka file penanjakan.semeruc09.pw.conf , lalu tambahkan
-
-       b. Restart apache
-       c. Testing
-
+       1. Pindah ke directory /etc/apache2/sites-available kemudian buka file penanjakan.semeruc09.pw.conf , lalu tambahkan
+       ![Foto 26](img/26.PNG)
+       2. Restart apache
+       3. Testing
+       ![Foto 27](img/27.PNG)
+       ![Foto 28](img/28.PNG)
+       ![Foto 29](img/29.PNG)
+       ![Foto 30](img/30.PNG)
 
    12. Untuk mengatasi HTTP Error code 404, disediakan file 404.html pada folder /errors untuk mengganti error default 404 dari Apache.
-       a. Menambahkan ErrorDocument 404 /errors/404.html di file penanjakan.semeruc09.pw.conf
-       
-       b. Testing
-       
+       1. Menambahkan ErrorDocument 404 /errors/404.html di file penanjakan.semeruc09.pw.conf
+       ![Foto 31](img/31.PNG)
+       2. Testing
+       ![Foto 32](img/32.PNG)
        
    13. Untuk mengakses file assets javascript awalnya harus menggunakan url http://penanjakan.semeruc09.pw/public/javascripts. Karena terlalu panjang maka dibuatkan konfigurasi
-      virtual host agar ketika mengakses file assets menjadi http://penanjakan.semeruc09.pw/js.
-       a. Edit file penanjakan.semeruc09.pw.conf ditambah Alias
-       
-       b. Testing
-       
+        virtual host agar ketika mengakses file assets menjadi http://penanjakan.semeruc09.pw/js.
+       1. Edit file penanjakan.semeruc09.pw.conf ditambah Alias
+       ![Foto 33](img/33.PNG)
+       2. Testing
+       ![Foto 34](img/34.PNG)
        
    14. Web http://naik.gunung.semeruc09.pw sudah bisa diakses hanya dengan menggunakan port 8888. DocumentRoot web berada pada /var/www/naik.gunung.semeruc09.pw.
-       a. Download file naik.gunung.semeruc09.pw dengan wget
-       b. Edit file naik.gunung.semeruc09.pw dengan VirtualHost = 8888 dan Documentroot nya sesuaikan
-
-       c. Tambahkan port 8888 pada file ports.conf
-       
-       d. Jalankan a2ensite lalu reload dan restart
-       e. Testing
-
+       1. Download file naik.gunung.semeruc09.pw dengan wget
+       2. Edit file naik.gunung.semeruc09.pw dengan VirtualHost = 8888 dan Documentroot nya sesuaikan
+       ![Foto 35](img/35.PNG)
+       3. Tambahkan port 8888 pada file ports.conf
+       ![Foto 36](img/36.PNG)
+       4. Jalankan a2ensite lalu reload dan restart
+       5. Testing
+       ![Foto 37](img/37.PNG)
 
    15. Buat web http://naik.gunung.semeruyyy.pw agar diberi autentikasi password dengan username “semeru” dan password “kuynaikgunung” supaya aman dan tidak sembarang orang bisa 
-      mengaksesnya. (referensi jawaban : https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-14-04)
-       a. Buat File passwordnya dengan command htpasswd -c /etc/apache2/.htpasswd semeru
-       b. Lalu akan keluar password yang mau diisi, isi dengan kuynaikgunung, setelah itu password akan disimpan secara terenkripsi
-   
-       c. Lalu, pada file naik.gunung.semeruc09.pw.conf ditambahkan :
-
-       d. Restart apache
-       e. Testing
-
+        mengaksesnya. (referensi jawaban : https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-14-04)
+       1. Buat File passwordnya dengan command htpasswd -c /etc/apache2/.htpasswd semeru
+       2. Lalu akan keluar password yang mau diisi, isi dengan kuynaikgunung, setelah itu password akan disimpan secara terenkripsi
+       ![Foto 38](img/38.PNG)
+       3. Lalu, pada file naik.gunung.semeruc09.pw.conf ditambahkan :
+       ![Foto 39](img/39.PNG)
+       4. Restart apache
+       5. Testing
+       ![Foto 40](img/40.PNG)
+       ![Foto 41](img/41.PNG)
 
    16.  Setiap mengunjungi IP PROBOLINGGO akan dialihkan secara otomatis ke http://semeruc09.pw. (referensi jawaban : https://www.digitalocean.com/community/questions/redirect-
-       ip-address-to-domain-name-apache)
-        a. Dengan cara, membuat direktori bernama alihkan di /var/www/ , lalu mengedit file 000-default yang DocumentRootnya diarahkan ke /var/www/alihkan dan edit agar dapat 
+         ip-address-to-domain-name-apache)
+        1. Dengan cara, membuat direktori bernama alihkan di /var/www/ , lalu mengedit file 000-default yang DocumentRootnya diarahkan ke /var/www/alihkan dan edit agar dapat 
           membaca .htaccess
-          
-        b. Lalu, buat file .htaccess di dalam folder alihkan, yg berisi :
-
-        c. Restart apache
-        d. Testing
-           i. Sebelum
-           
-           ii. Sesudah
-
+        ![Foto 42](img/42.PNG)
+        2. Lalu, buat file .htaccess di dalam folder alihkan, yg berisi :
+        ![Foto 43](img/43.PNG)
+        3. Restart apache
+        4. Testing
+           1. Sebelum
+           ![Foto 44](img/44.PNG)
+           2. Sesudah
+           ![Foto 45](img/45.PNG)
 
    17. Karena pengunjung pada /var/www/penanjakan.semeruc09.pw/public/images sangat banyak maka semua request gambar yang memiliki substring “semeru” akan diarahkan menuju 
       semeru.jpg.(referensi jawaban : https://www.mynotepaper.com/how-to-redirect-url-using-htaccess-if-contains-specific-word)
-       a. Edit file /etc/apache2/sites-available/penanjakan.semeruc09.pw.conf untuk bisa membaca .htaccess
-       
-       b. Tambahkan file .htaccess ke DocumentRoot penanjakan.semeruc09.pw 
-       
-       c. Testing, jika mengetik bukansemeruaja.jpg, tetap akan teralihkan ke semeru.jpg
-
+       1. Edit file /etc/apache2/sites-available/penanjakan.semeruc09.pw.conf untuk bisa membaca .htaccess
+       ![Foto 46](img/46.PNG)
+       2. Tambahkan file .htaccess ke DocumentRoot penanjakan.semeruc09.pw 
+       ![Foto 47](img/47.PNG)
+       3. Testing, jika mengetik bukansemeruaja.jpg, tetap akan teralihkan ke semeru.jpg
+       ![Foto 48](img/48.PNG)
+       ![Foto 49](img/49.PNG)
 
    
 

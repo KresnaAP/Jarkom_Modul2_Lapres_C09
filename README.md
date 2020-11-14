@@ -5,6 +5,7 @@ Kelompok C09
 
 Praktikum Modul 2 berupa *UML, DNS (Domain Name System), dan Web Server*.
 
+
 ## Soal
 Semeru adalah salah satu gunung yang terkenal di Jawa Timur. Bibah adalah salah satu juru kunci
 Semeru. Bibah ingin menyebarkan keindahan Semeru pada dunia sehingga dia membeli 3 buah server
@@ -57,6 +58,7 @@ dirasa kurang profesional, maka setiap Bibah mengunjungi IP PROBOLINGGO akan dia
 secara otomatis ke http:// semeruyyy.pw. (17) Karena pengunjung pada
 /var/www/ penanjakan.semeruyyy.pw/public/images sangat banyak maka semua request gambar
 yang memiliki substring “semeru” akan diarahkan menuju semeru.jpg.
+
 
 ## Jawaban
    1. Setting alamat utama : http://semeruc09.pw
@@ -126,136 +128,117 @@ yang memiliki substring “semeru” akan diarahkan menuju semeru.jpg.
          2. Kemudian comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options `Allow-query{any;};`
          ![Foto 17](img/17.PNG)
          3. Lalu edit file /etc/bind/named.conf.local
-         ![Foto 17](img/18.PNG)
+         ![Foto 18](img/18.PNG)
          4. Kemudian buat direktori dengan nama delegasi
          5. Copy db.local ke direktori pucang dan edit namanya menjadi gunung.semeruc09.pw
          6. Kemudian edit file gunung.semeruc09.pw
-         ![Foto 17](img/19.PNG)
+         ![Foto 19](img/19.PNG)
          7. Restart bind9
       3. Testing
          1. Lakukan ping ke domain gunung.semeruc09.pw dari GRESIK
-         ![Foto 17](img/20.PNG)
+         ![Foto 20](img/20.PNG)
 
    7. Buat subdomain dengan nama http://naik.gunung.semeruc09.pw, domain ini diarahkan ke IP Server PROBOLINGGO.
       1. Edit file gunung.semeruc09.pw di MOJOKERTO
-      ![Foto 17](img/17.PNG)
+      ![Foto 21](img/21.PNG)
       2. Kemudian Restart bind9
       3. Testing di GRESIK
-      ![Foto 18](img/18.PNG)
+      ![Foto 22](img/22.PNG)
       
    8. Domain http://semeruyyy.pw memiliki DocumentRoot pada /var/www/semeruyyy.pw.
       1. Install apache2 di PROBOLINGGO
       2. Install php
       3. Download file dengan wget di /var/www/
       4. Lalu setting di /etc/apache2/sites-available/semeruc09.pw.conf
-      ![Foto 19](img/19.PNG)
+      ![Foto 23](img/23.PNG)
       5. Jalankan a2ensite, lalu Reload dan restart apache2
       6. Testing :
-      ![Foto 20](img/20.PNG)
+      ![Foto 24](img/24.PNG)
 
    9. Aktifkan mod rewrite agar urlnya menjadi http://semeruyyy.pw/home. (Referensi jawaban :https://stackoverflow.com/questions/14149339/htaccess-short-url)
       1. Jalankan perintah a2enmod rewrite untuk mengaktifkan module rewrite. Lalu restart apache2.
       2. Buat file .htaccess di /var/www/semeruc09.pw dan diisi dengan :
-      ![Foto 20](img/20.PNG)
+      ![Foto 25](img/25.PNG)
       3. Edit file semeruc09.pw.conf
-      ![Foto 21](img/21.PNG)
+      ![Foto 26](img/26.PNG)
       4. Restart apache
       5. Testing, buka  http://semeruyyy.pw/home.
-      ![Foto 22](img/22.PNG)
+      ![Foto 27](img/27.PNG)
 
    10. Web http://penanjakan.semeruc09.pw akan digunakan untuk menyimpan assets file yang memiliki DocumentRoot pada /var/www/penanjakan.semeruc09.pw 
         dan memiliki struktur folder sebagai berikut:
-       ![Foto 23](img/23.PNG)
+       ![Foto 28](img/28.PNG)
        1. setting di /etc/apache2/sites-available/penanjakan.semeruc09.pw.conf
-       ![Foto 24](img/24.PNG)
+       ![Foto 29](img/29.PNG)
        2. Jalankan a2ensite, lalu Reload dan restart apache2
-       ![Foto 25](img/25.PNG)
+       ![Foto 30](img/30.PNG)
 
    11. Pada folder /public dibolehkan directory listing namun untuk folder yang berada di dalamnya tidak dibolehkan.
        1. Pindah ke directory /etc/apache2/sites-available kemudian buka file penanjakan.semeruc09.pw.conf , lalu tambahkan
-       ![Foto 26](img/26.PNG)
+       ![Foto 31](img/31.PNG)
        2. Restart apache
        3. Testing
-       ![Foto 27](img/27.PNG)
-       ![Foto 28](img/28.PNG)
-       ![Foto 29](img/29.PNG)
-       ![Foto 30](img/30.PNG)
+       ![Foto 32](img/32.PNG)
+       ![Foto 33](img/33.PNG)
+       ![Foto 34](img/34.PNG)
+       ![Foto 35](img/35.PNG)
 
    12. Untuk mengatasi HTTP Error code 404, disediakan file 404.html pada folder /errors untuk mengganti error default 404 dari Apache.
        1. Menambahkan ErrorDocument 404 /errors/404.html di file penanjakan.semeruc09.pw.conf
-       ![Foto 31](img/31.PNG)
+       ![Foto 36](img/36.PNG)
        2. Testing
-       ![Foto 32](img/32.PNG)
+       ![Foto 37](img/37.PNG)
        
    13. Untuk mengakses file assets javascript awalnya harus menggunakan url http://penanjakan.semeruc09.pw/public/javascripts. Karena terlalu panjang maka dibuatkan konfigurasi
         virtual host agar ketika mengakses file assets menjadi http://penanjakan.semeruc09.pw/js.
        1. Edit file penanjakan.semeruc09.pw.conf ditambah Alias
-       ![Foto 33](img/33.PNG)
+       ![Foto 38](img/38.PNG)
        2. Testing
-       ![Foto 34](img/34.PNG)
+       ![Foto 39](img/39.PNG)
        
    14. Web http://naik.gunung.semeruc09.pw sudah bisa diakses hanya dengan menggunakan port 8888. DocumentRoot web berada pada /var/www/naik.gunung.semeruc09.pw.
        1. Download file naik.gunung.semeruc09.pw dengan wget
        2. Edit file naik.gunung.semeruc09.pw dengan VirtualHost = 8888 dan Documentroot nya sesuaikan
-       ![Foto 35](img/35.PNG)
+       ![Foto 40](img/40.PNG)
        3. Tambahkan port 8888 pada file ports.conf
-       ![Foto 36](img/36.PNG)
+       ![Foto 41](img/41.PNG)
        4. Jalankan a2ensite lalu reload dan restart
        5. Testing
-       ![Foto 37](img/37.PNG)
+       ![Foto 42](img/42.PNG)
 
    15. Buat web http://naik.gunung.semeruyyy.pw agar diberi autentikasi password dengan username “semeru” dan password “kuynaikgunung” supaya aman dan tidak sembarang orang bisa 
         mengaksesnya. (referensi jawaban : https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-14-04)
        1. Buat File passwordnya dengan command htpasswd -c /etc/apache2/.htpasswd semeru
        2. Lalu akan keluar password yang mau diisi, isi dengan kuynaikgunung, setelah itu password akan disimpan secara terenkripsi
-       ![Foto 38](img/38.PNG)
+       ![Foto 43](img/43.PNG)
        3. Lalu, pada file naik.gunung.semeruc09.pw.conf ditambahkan :
-       ![Foto 39](img/39.PNG)
+       ![Foto 44](img/44.PNG)
        4. Restart apache
        5. Testing
-       ![Foto 40](img/40.PNG)
-       ![Foto 41](img/41.PNG)
+       ![Foto 45](img/45.PNG)
+       ![Foto 46](img/46.PNG)
 
    16.  Setiap mengunjungi IP PROBOLINGGO akan dialihkan secara otomatis ke http://semeruc09.pw. (referensi jawaban : https://www.digitalocean.com/community/questions/redirect-
          ip-address-to-domain-name-apache)
         1. Dengan cara, membuat direktori bernama alihkan di /var/www/ , lalu mengedit file 000-default yang DocumentRootnya diarahkan ke /var/www/alihkan dan edit agar dapat 
           membaca .htaccess
-        ![Foto 42](img/42.PNG)
+        ![Foto 47](img/47.PNG)
         2. Lalu, buat file .htaccess di dalam folder alihkan, yg berisi :
-        ![Foto 43](img/43.PNG)
+        ![Foto 48](img/48.PNG)
         3. Restart apache
         4. Testing
            1. Sebelum
-           ![Foto 44](img/44.PNG)
+           ![Foto 49](img/49.PNG)
            2. Sesudah
-           ![Foto 45](img/45.PNG)
+           ![Foto 50](img/50.PNG)
 
    17. Karena pengunjung pada /var/www/penanjakan.semeruc09.pw/public/images sangat banyak maka semua request gambar yang memiliki substring “semeru” akan diarahkan menuju 
       semeru.jpg.(referensi jawaban : https://www.mynotepaper.com/how-to-redirect-url-using-htaccess-if-contains-specific-word)
        1. Edit file /etc/apache2/sites-available/penanjakan.semeruc09.pw.conf untuk bisa membaca .htaccess
-       ![Foto 46](img/46.PNG)
+       ![Foto 51](img/51.PNG)
        2. Tambahkan file .htaccess ke DocumentRoot penanjakan.semeruc09.pw 
-       ![Foto 47](img/47.PNG)
+       ![Foto 52](img/52.PNG)
        3. Testing, jika mengetik bukansemeruaja.jpg, tetap akan teralihkan ke semeru.jpg
-       ![Foto 48](img/48.PNG)
-       ![Foto 49](img/49.PNG)
-
-   
-
-
-              
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       ![Foto 53](img/53.PNG)
+       ![Foto 54](img/54.PNG)
+       

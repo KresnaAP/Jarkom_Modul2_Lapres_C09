@@ -75,99 +75,103 @@ yang memiliki substring “semeru” akan diarahkan menuju semeru.jpg.
       
    2. Membuat alias http://www.semeruc09.pw
       1. Buka file semeruc09.pw pada server MALANG dan tambahkan konfigurasi seperti pada gambar berikut:
-      ![Foto 4](img/4.PNG)
+      ![Foto a](img/a.PNG)
       2. Restart bind9
       3. Untuk test, bisa ping www.semeruc09.pw di GRESIK
-      ![Foto 5](img/5.PNG)
+      ![Foto 4](img/4.PNG)
       
    3. Buat subdomain http://penanjakan.semeruc09.pw 
       1. Edit file /etc/bind/jarkom/semeruc09.pw lalu tambahkan subdomain untuk semeruc09.pw yang mengarah ke IP PROBOLINGGO.
-      ![Foto 6](img/6.PNG)
+      ![Foto 5](img/5.PNG)
       2. Restart service bind
       3. Test ping penanjakan.semeru.c09.pw
-      ![Foto 7](img/7.PNG)
+      ![Foto 6](img/6.PNG)
       
    4. Reverse domain untuk domain utama
       1. Edit file /etc/bind/named.conf.local pada MALANG 
       2. Tambahkan konfigurasi berikut
-      ![Foto 8](img/8.PNG)
+      ![Foto 7](img/7.PNG)
       3. Copykan file db.local pada path /etc/bind ke dalam folder jarkom yang baru saja dibuat.
       4. Edit file 77.151.10.in-addr.arpa menjadi seperti gambar di bawah ini
-      ![Foto 9](img/9.PNG)
+      ![Foto 8](img/8.PNG)
       5. Kemudian restart bind9 
       6. Testing menggunakan host -t PTR 10.151.77.84 di GRESIK
-      ![Foto 10](img/10.PNG)
+      ![Foto 9](img/9.PNG)
       
    5. Membuat DNS Server Slave pada MOJOKERTO
       1. Konfigurasi Pada Server MALANG
          1. Edit file /etc/bind/named.conf.local
-         ![Foto 11](img/11.PNG)
+         ![Foto 10](img/10.PNG)
          2. Lakukan restart bind9
       2. Konfigurasi Pada Server MOJOKERTO
          1. Buka file /etc/bind/named.conf.local pada MOJOKERTO dan tambahkan syntax berikut:
-         ![Foto 12](img/12.PNG)
+         ![Foto 11](img/11.PNG)
          2. Lakukan restart bind9
       3. Testing
          1. Pada server MALANG matikan service bind9
          2. Pada client GRESIK pastikan pengaturan nameserver mengarah ke IP MALANG dan IP MOJOKERTO
          3. Lakukan ping ke semeruc09.pw pada client GRESIK.
-         ![Foto 13](img/13.PNG)
+         ![Foto 12](img/12.PNG)
         
    6. Buat subdomain dengan alamat http://gunung.semeruc09.pw yang didelegasikan pada server MOJOKERTO dan mengarah ke IP Server PROBOLINGGO. 
       1. Konfigurasi Pada Server MALANG
          1. Pada MALANG, edit file /etc/bind/jarkom/semeruc09.pw dan ubah menjadi seperti di bawah ini
-         ![Foto 14](img/14.PNG)
+         ![Foto 13](img/13.PNG)
          2. Kemudian edit file /etc/bind/named.conf.options pada MALANG.
          3. Kemudian comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options : `allow-query{any;};`
-         ![Foto 15](img/15.PNG)
+         ![Foto 14](img/14.PNG)
          4. Kemudian edit file /etc/bind/named.conf.local menjadi seperti gambar di bawah:
-         ![Foto 16](img/16.PNG)
+         ![Foto 15](img/15.PNG)
          5. Setelah itu restart bind9
       2. Konfigurasi Pada Server MOJOKERTO
          1. Pada MOJOKERTO edit file /etc/bind/named.conf.options
          2. Kemudian comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options `Allow-query{any;};`
-         ![Foto 17](img/17.PNG)
+         ![Foto 16](img/16.PNG)
          3. Lalu edit file /etc/bind/named.conf.local
-         ![Foto 18](img/18.PNG)
+         ![Foto 17](img/17.PNG)
          4. Kemudian buat direktori dengan nama delegasi
          5. Copy db.local ke direktori pucang dan edit namanya menjadi gunung.semeruc09.pw
          6. Kemudian edit file gunung.semeruc09.pw
-         ![Foto 19](img/19.PNG)
+         ![Foto 18](img/18.PNG)
          7. Restart bind9
       3. Testing
          1. Lakukan ping ke domain gunung.semeruc09.pw dari GRESIK
-         ![Foto 20](img/20.PNG)
+         ![Foto 19](img/19.PNG)
+         
 
    7. Buat subdomain dengan nama http://naik.gunung.semeruc09.pw, domain ini diarahkan ke IP Server PROBOLINGGO.
       1. Edit file gunung.semeruc09.pw di MOJOKERTO
-      ![Foto 21](img/21.PNG)
+      ![Foto 20](img/20.PNG)
       2. Kemudian Restart bind9
       3. Testing di GRESIK
-      ![Foto 22](img/22.PNG)
+      ![Foto 21](img/21.PNG)
+     
       
    8. Domain http://semeruyyy.pw memiliki DocumentRoot pada /var/www/semeruyyy.pw.
       1. Install apache2 di PROBOLINGGO
       2. Install php
       3. Download file dengan wget di /var/www/
       4. Lalu setting di /etc/apache2/sites-available/semeruc09.pw.conf
-      ![Foto 23](img/23.PNG)
+      ![Foto 22](img/22.PNG)
       5. Jalankan a2ensite, lalu Reload dan restart apache2
       6. Testing :
-      ![Foto 24](img/24.PNG)
+      ![Foto 23](img/23.PNG)
+      
 
    9. Aktifkan mod rewrite agar urlnya menjadi http://semeruyyy.pw/home. (Referensi jawaban :https://stackoverflow.com/questions/14149339/htaccess-short-url)
       1. Jalankan perintah a2enmod rewrite untuk mengaktifkan module rewrite. Lalu restart apache2.
       2. Buat file .htaccess di /var/www/semeruc09.pw dan diisi dengan :
-      ![Foto 25](img/25.PNG)
+      ![Foto 24](img/24.PNG)
       3. Edit file semeruc09.pw.conf
-      ![Foto 26](img/26.PNG)
+      ![Foto 25](img/25.PNG)
       4. Restart apache
       5. Testing, buka  http://semeruyyy.pw/home.
-      ![Foto 27](img/27.PNG)
+      ![Foto 26](img/26.PNG)
+      
 
    10. Web http://penanjakan.semeruc09.pw akan digunakan untuk menyimpan assets file yang memiliki DocumentRoot pada /var/www/penanjakan.semeruc09.pw 
         dan memiliki struktur folder sebagai berikut:
-       
+       ![Foto 27](img/27.PNG)
        1. setting di /etc/apache2/sites-available/penanjakan.semeruc09.pw.conf
        ![Foto 28](img/28.jpg)
        2. Jalankan a2ensite, lalu Reload dan restart apache2

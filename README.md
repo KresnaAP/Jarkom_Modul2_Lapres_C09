@@ -7,6 +7,7 @@ Praktikum Modul 2 berupa *UML, DNS (Domain Name System), dan Web Server*.
 
 
 ## Soal
+![Soal 1](img/soal1.PNG)
 Semeru adalah salah satu gunung yang terkenal di Jawa Timur. Bibah adalah salah satu juru kunci
 Semeru. Bibah ingin menyebarkan keindahan Semeru pada dunia sehingga dia membeli 3 buah server
 yang berada di MALANG , MOJOKERTO dan PROBOLINGGO . Server MALANG akan digunakan
